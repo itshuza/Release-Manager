@@ -1,16 +1,22 @@
-@extends('layouts.app')
-@section('content')
-<h1>Upload Archive</h1>
-<form action="{{ route('archives.store') }}" method="post" enctype="multipart/form-data">
-  @csrf
-  <label>Project</label>
-  <select name="project_id">@foreach($projects as $p)<option value="{{ $p->id }}">{{ $p->name }}</option>@endforeach</select>
-  <label>Version</label>
-  <input name="version" placeholder="v1.0.0">
-  <label>Platform</label>
-  <select name="platform">@foreach($platforms as $pl)<option value="{{ $pl }}">{{ $pl }}</option>@endforeach</select>
-  <label>File</label>
-  <input type="file" name="file">
-  <button type="submit">Upload</button>
+<form action="{{ route('archives.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+
+    <!-- New project name -->
+    <input type="text" name="project_name" placeholder="Enter new project name" required>
+
+    <input type="text" name="version" placeholder="v1.0.0" required>
+
+    <select name="platform">
+        @foreach ($platforms as $platform)
+            <option value="{{ $platform }}">{{ $platform }}</option>
+        @endforeach
+    </select>
+
+    <!-- File upload option -->
+    <input type="file" name="file">
+
+    <!-- OR GitHub URL option -->
+    <input type="url" name="repo_url" placeholder="https://github.com/user/repo">
+
+    <button type="submit">Archive Repository</button>
 </form>
-@endsection

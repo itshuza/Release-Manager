@@ -1,18 +1,23 @@
+<form action="<?php echo e(route('archives.store')); ?>" method="POST" enctype="multipart/form-data">
+    <?php echo csrf_field(); ?>
 
-<?php $__env->startSection('content'); ?>
-<h1>Upload Archive</h1>
-<form action="<?php echo e(route('archives.store')); ?>" method="post" enctype="multipart/form-data">
-  <?php echo csrf_field(); ?>
-  <label>Project</label>
-  <select name="project_id"><?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><option value="<?php echo e($p->id); ?>"><?php echo e($p->name); ?></option><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></select>
-  <label>Version</label>
-  <input name="version" placeholder="v1.0.0">
-  <label>Platform</label>
-  <select name="platform"><?php $__currentLoopData = $platforms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><option value="<?php echo e($pl); ?>"><?php echo e($pl); ?></option><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></select>
-  <label>File</label>
-  <input type="file" name="file">
-  <button type="submit">Upload</button>
+    <!-- New project name -->
+    <input type="text" name="project_name" placeholder="Enter new project name" required>
+
+    <input type="text" name="version" placeholder="v1.0.0" required>
+
+    <select name="platform">
+        <?php $__currentLoopData = $platforms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $platform): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <option value="<?php echo e($platform); ?>"><?php echo e($platform); ?></option>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </select>
+
+    <!-- File upload option -->
+    <input type="file" name="file">
+
+    <!-- OR GitHub URL option -->
+    <input type="url" name="repo_url" placeholder="https://github.com/user/repo">
+
+    <button type="submit">Archive Repository</button>
 </form>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Asad-Huzaifa\release-manager\resources\views/archives/create.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Asad-Huzaifa\release-manager\resources\views/archives/create.blade.php ENDPATH**/ ?>
